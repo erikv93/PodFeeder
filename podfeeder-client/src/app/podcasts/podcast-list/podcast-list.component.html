@@ -1,0 +1,8 @@
+<mat-list>
+    @for (podcast of podcasts$ | async; track $index) {
+        <mat-list-item [routerLink]="['/podcasts', podcast.id]">
+            <h1 matListItemTitle>{{ podcast.name }}</h1>
+            <span matListItemLine>{{ podcast.description }}</span>
+        </mat-list-item>
+    }
+</mat-list>

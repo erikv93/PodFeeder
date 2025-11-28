@@ -1,0 +1,8 @@
+{
+    "/api": {
+        "target": "http://127.0.0.1:32770",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "verbose"
+    }
+}

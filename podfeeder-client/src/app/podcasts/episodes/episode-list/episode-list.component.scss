@@ -1,0 +1,28 @@
+/* Keep the episode description to a single line and show ellipsis when it overflows */
+:host ::ng-deep table {
+	/* allow the truncate rules to work inside the material table */
+	table-layout: fixed;
+}
+
+td.description-cell {
+	padding: 0.5rem 0.75rem;
+}
+
+td.description-cell .truncate {
+	display: block;
+	max-width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/* Responsive tweak: allow slightly larger space on wide screens */
+@media (min-width: 1200px) {
+	td.description-cell {
+		max-width: 480px;
+	}
+}
+
+thead {
+	display: none;
+}

@@ -1,0 +1,70 @@
+# ---------------------------
+# Angular / Node.js ignores
+# ---------------------------
+
+# Node modules
+node_modules/
+
+# Angular build output
+dist/
+tmp/
+out-tsc/
+
+# Angular testing / coverage
+coverage/
+
+# IDE/editor files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Environment files
+*.env
+*.local
+
+# ---------------------------
+# .NET / Visual Studio ignores
+# ---------------------------
+
+# Build results
+bin/
+obj/
+[Bb]uild/
+[Ll]og/
+
+# Visual Studio files
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Backup & generated files
+*.bak
+*.tmp
+*.log
+*.vspscc
+*.vssscc
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# NuGet packages
+*.nupkg
+packages/
+*.snupkg
+
+# Publish output
+publish/
+*.Publish.xml
+
+# Others
+_ReSharper*/
+*.DotSettings.user
