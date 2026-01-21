@@ -8,6 +8,7 @@ import { MatTableModule } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-episode-list',
@@ -21,12 +22,26 @@ export class EpisodeListComponent {
   constructor(
     private podcastDataService: PodcastDataService,
     private route: ActivatedRoute,
-    public sanitizer: DomSanitizer) {
+    public sanitizer: DomSanitizer,
+    private http: HttpClient) {
     const id: string = this.route.snapshot.paramMap.get('podcastId')!;
     this.episodes$ = this.podcastDataService.getEpisodesForPodcast(id);
    }
 
    displayedColumns: string[] = ['title', 'description', 'downloadUrl'];
+
+   downloadEpisode(episode: Episode): void {
+    this.http.get(episode.downloadUrl, { responseType: 'blob' }).subscribe(blob => {
+      const link = document.createElement('a');
+      const url = window.URL.createObjectURL(blob);
+      link.href = url;
+      link.download = `${episode.title || 'episode'}.mp3`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    });
+   }
 }
 
 

@@ -20,11 +20,11 @@
   </ng-container>
 
   <ng-container matColumnDef="downloadUrl">
-    <th mat-header-cell *matHeaderCellDef> Download URL </th>
+    <th mat-header-cell *matHeaderCellDef> Download </th>
     <td mat-cell *matCellDef="let episode">
-      <a target="_blank" matMiniFab [href]="episode.downloadUrl" download="podcast.mp3">
+      <button matMiniFab (click)="downloadEpisode(episode)">
         <mat-icon>download</mat-icon>
-      </a>
+      </button>
     </td>
   </ng-container>
 
