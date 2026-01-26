@@ -13,8 +13,8 @@ builder.Services.AddScoped<IFeedReader, FeedReader>();
 var dbPath = Environment.GetEnvironmentVariable("DATABASE_PATH") ?? "podcasts.db";
 builder.Services.AddSingleton<IPodcastDb, PodcastDb>(sp => new PodcastDb(dbPath));
 
-// Configure to listen on port 6969
-builder.WebHost.UseUrls("http://+:6969");
+// Configure to listen on port 7979
+builder.WebHost.UseUrls("http://+:7979");
 
 var app = builder.Build();
 

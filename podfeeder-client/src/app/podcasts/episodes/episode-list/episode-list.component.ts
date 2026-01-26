@@ -9,10 +9,11 @@ import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { HttpClient } from '@angular/common/http';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-episode-list',
-  imports: [AsyncPipe, MatIconModule, MatTableModule, MatExpansionModule],
+  imports: [AsyncPipe, MatIconModule, MatTableModule, MatExpansionModule, MatButtonModule],
   templateUrl: './episode-list.component.html',
   styleUrl: './episode-list.component.scss'
 })

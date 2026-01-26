@@ -11,5 +11,5 @@
         <mat-label>Feed URL</mat-label>
         <input formControlName="feedUrl"   matInput>
     </mat-form-field>
-    <button mat-button (click)="addPodcast()">Add</button>
+    <button mat-raised-button color="primary" (click)="addPodcast()" [disabled]="!addForm.valid">Add</button>
 </div>

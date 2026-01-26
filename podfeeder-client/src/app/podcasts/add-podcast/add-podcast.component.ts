@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -16,10 +16,15 @@ import { Router } from '@angular/router';
 export class AddPodcastComponent {
   constructor(private podcastDataService: PodcastDataService, private router: Router) { }
 
+  private readonly rssUrlPattern = /^https?:\/\/.+\.(rss|xml|feed)$/i;
+
   addForm = new FormGroup({    
-    name: new FormControl('', {nonNullable: true}),    
+    name: new FormControl('', {nonNullable: true, validators: Validators.required}),    
     description: new FormControl('', {nonNullable: true}),
-    feedUrl: new FormControl('', {nonNullable: true})
+    feedUrl: new FormControl('', {nonNullable: true, validators: [
+      Validators.required,
+      Validators.pattern(this.rssUrlPattern)
+    ]})
   });
 
   addPodcast() {

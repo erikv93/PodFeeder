@@ -27,6 +27,17 @@ button[matMiniFab] {
 	cursor: pointer;
 }
 
-thead {
-	display: none;
+tbody tr {
+    border-bottom: 1px solid var(--mat-sys-outline-variant);
+	background-color: var(--mat-sys-surface);
+}
+
+.mat-column-title {
+  flex: 1;
+  width: 50%;
+}
+
+.mat-column-description {
+  flex: 2;
+  width: 50%;
 }

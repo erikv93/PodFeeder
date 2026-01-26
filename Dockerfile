@@ -28,14 +28,14 @@ COPY --from=frontend-builder /app/frontend/dist/podfeeder-client/browser/* wwwro
 # Create data directory for database persistence
 RUN mkdir -p /app/data
 
-# Expose port 6969 (the hilarious port)
-EXPOSE 6969
+# Expose port 7979
+EXPOSE 7979
 
 # Volume for database persistence
 VOLUME ["/app/data"]
 
 # Set environment variables
-ENV ASPNETCORE_URLS=http://+:6969
+ENV ASPNETCORE_URLS=http://+:7979
 ENV ASPNETCORE_ENVIRONMENT=Production
 ENV DATABASE_PATH=/app/data/podcasts.db
 
