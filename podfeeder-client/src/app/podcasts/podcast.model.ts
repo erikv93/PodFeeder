@@ -3,4 +3,6 @@ export interface Podcast {
     name: string;
     description: string;
     feedurl: string;
+    lastViewedTime: Date | null;
+    lastUpdatedTime: Date | null;
 }

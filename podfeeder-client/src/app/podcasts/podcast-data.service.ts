@@ -22,4 +22,8 @@ export class PodcastDataService {
   public addPodcast(podcast: Podcast) : Observable<Podcast> {
     return this.http.post<Podcast>('/api/podcasts', podcast);
   }
+
+  public deletePodcast(podcastId: string) : Observable<void> {
+    return this.http.delete<void>(`/api/podcasts/${podcastId}`);
+  }
 }

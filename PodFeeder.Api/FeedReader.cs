@@ -10,12 +10,14 @@ public class FeedReader : IFeedReader
     {
         using XmlReader reader = XmlReader.Create(feedUrl);
         var feed = SyndicationFeed.Load(reader);
+        var lastUpdate = feed.LastUpdatedTime;
         return new Podcast
         {
             Id = Guid.NewGuid(),
             Name = feed.Title.Text,
             Description = feed.Description?.Text ?? string.Empty,
-            FeedUrl = feedUrl
+            FeedUrl = feedUrl,
+            LastUpdatedTime = lastUpdate,
         };
     }
 

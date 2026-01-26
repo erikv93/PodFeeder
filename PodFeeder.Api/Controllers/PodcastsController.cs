@@ -28,5 +28,10 @@ public class PodcastsController(IFeedReader feedReader, IPodcastDb podcastDb) : 
         return feedReader.GetEpisodes(podcast);
     }
 
-
+    [HttpDelete("{podcastid}")]
+    public ActionResult DeletePodcast(Guid podcastId)
+    {
+        podcastDb.DeletePodcast(podcastId);
+        return NoContent();
+    }
 }

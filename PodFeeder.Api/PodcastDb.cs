@@ -12,6 +12,8 @@ public class PodcastDb(string dbPath) : IPodcastDb
         {
             podcast.Id = Guid.NewGuid();
         }
+        
+        podcast.LastViewedTime = DateTime.UtcNow;
 
         using var db = new LiteDatabase(DbPath);
         db.GetCollection<Podcast>().Insert(podcast);
@@ -27,6 +29,18 @@ public class PodcastDb(string dbPath) : IPodcastDb
     public Podcast GetPodcastById(Guid id)
     {
         using var db = new LiteDatabase(DbPath);
-        return db.GetCollection<Podcast>().FindById(id);
+        var podcasts = db.GetCollection<Podcast>();
+        var podcast = podcasts.FindById(id);
+        podcast.LastViewedTime = DateTime.UtcNow;
+        podcasts.Update(podcast);
+        
+        return podcast;
+    }
+
+    public void DeletePodcast(Guid id)
+    {
+        using var db = new LiteDatabase(DbPath);
+        var podcasts = db.GetCollection<Podcast>();
+        podcasts.Delete(id);
     }
 }
