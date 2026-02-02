@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 export class AddPodcastComponent {
   constructor(private podcastDataService: PodcastDataService, private router: Router) { }
 
-  private readonly rssUrlPattern = /^https?:\/\/.+\.(rss|xml|feed)$/i;
+  private readonly rssUrlPattern = /^https?:\/\/.+(?:\.|\/)(rss|xml|feed)$/;
 
   addForm = new FormGroup({    
     name: new FormControl('', {nonNullable: true, validators: Validators.required}),    
