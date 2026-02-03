@@ -15,6 +15,10 @@ export class PodcastDataService {
     return this.http.get<Podcast[]>('/api/podcasts');
   }
 
+  public getPodcast(podcastId: string) : Observable<Podcast> {
+    return this.http.get<Podcast>(`/api/podcasts/${podcastId}`);
+  }
+
   public getEpisodesForPodcast(podcastId: string) : Observable<Episode[]> {
     return this.http.get<Episode[]>(`/api/podcasts/${podcastId}/episodes`);
   }

@@ -1,1 +1,11 @@
+@if(podcast$ | async; as podcast){
+    <div class="podcast-details">
+        <h2>{{ podcast.name }}</h2>
+        @if(podcast.imageUrl !== null) {
+            <img [src]="podcast.imageUrl">
+        }
+        <div [innerHTML]="podcast.description"></div>
+    </div>
+
+}
 <app-episode-list></app-episode-list>

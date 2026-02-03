@@ -5,7 +5,7 @@ using PodFeeder.Api.Database;
 
 namespace PodFeeder.Api;
 
-public class FeedReader(IPodcastDb podcastDb) : IFeedReader
+public class FeedReader(IDb<Podcast> podcastDb) : IFeedReader
 {
     public Podcast GetPodcast(string feedUrl)
     {
@@ -18,13 +18,14 @@ public class FeedReader(IPodcastDb podcastDb) : IFeedReader
             Name = feed.Title.Text,
             Description = feed.Description?.Text ?? string.Empty,
             FeedUrl = feedUrl,
+            ImageUrl = feed.ImageUrl?.ToString(),
             LastUpdatedTime = lastUpdate,
         };
     }
 
     public IEnumerable<Episode> GetEpisodes(Guid podcastId)
     {
-        var podcast =  podcastDb.GetPodcastById(podcastId);
+        var podcast =  podcastDb.Get(podcastId);
         using XmlReader reader = XmlReader.Create(podcast.FeedUrl);
 
         var feed = SyndicationFeed.Load(reader);

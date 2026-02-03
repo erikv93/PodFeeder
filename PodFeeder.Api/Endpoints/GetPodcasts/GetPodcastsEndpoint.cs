@@ -3,7 +3,7 @@ using PodFeeder.Api.Database;
 
 namespace PodFeeder.Api.Endpoints.GetPodcasts;
 
-public class GetPodcastsEndpoint(IPodcastDb db) : Endpoint<GetPodcastsRequest, List<Podcast>>
+public class GetPodcastsEndpoint(IDb<Podcast> db) : Endpoint<GetPodcastsRequest, List<Podcast>>
 {
     public override void Configure()
     {
@@ -13,7 +13,7 @@ public class GetPodcastsEndpoint(IPodcastDb db) : Endpoint<GetPodcastsRequest, L
 
     public override async Task HandleAsync(GetPodcastsRequest request, CancellationToken cancellationToken)
     {
-        var podcasts = db.GetPodcasts().ToList();
+        var podcasts = db.Get();
         await Send.OkAsync(podcasts, cancellationToken);
     }
 }

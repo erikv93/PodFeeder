@@ -11,7 +11,7 @@ builder.Services.AddFastEndpoints();
 
 // add db
 var dbPath = Environment.GetEnvironmentVariable("DATABASE_PATH") ?? "podcasts.db";
-builder.Services.AddSingleton<IPodcastDb, PodcastDb>(sp => new PodcastDb(dbPath));
+builder.Services.AddSingleton<IDb<Podcast>>(new Db<Podcast>(dbPath));
 
 
 builder.WebHost.UseUrls("http://+:7979");

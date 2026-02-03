@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { PodcastListComponent } from './podcasts/podcast-list/podcast-list.component';
 import { EpisodeListComponent } from './podcasts/episodes/episode-list/episode-list.component';
 import { AddPodcastComponent } from './podcasts/add-podcast/add-podcast.component';
+import { PodcastDetailsComponent } from './podcasts/podcast-details/podcast-details.component';
 
 export const routes: Routes = [
     {
@@ -21,7 +22,7 @@ export const routes: Routes = [
     },
     {    
         path: 'podcasts/:podcastId',    
-        component: EpisodeListComponent,    
-        title: 'Podcast',  
+        component: PodcastDetailsComponent,    
+        title: 'Podcast details',  
     }
 ];

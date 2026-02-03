@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { combineLatest, map, Observable, of, switchMap, tap } from 'rxjs';
 import { Episode } from '../episode.model';
 import { AsyncPipe, DatePipe } from '@angular/common';
@@ -40,10 +40,10 @@ export class EpisodeListComponent {
 
   constructor(
     private podcastDataService: PodcastDataService,
-    private route: ActivatedRoute,
     private http: HttpClient,
+    private route: ActivatedRoute,
     public dialog: MatDialog) {
-    const podcastId: string = this.route.snapshot.paramMap.get('podcastId')!;
+    const podcastId = this.route.snapshot.paramMap.get('podcastId')!;
     const episodes$ = this.podcastDataService.getEpisodesForPodcast(podcastId);
     const pageChange$ = toObservable(this.pageChange);
     this.paginatedEpisodes$ = combineLatest([pageChange$, episodes$])

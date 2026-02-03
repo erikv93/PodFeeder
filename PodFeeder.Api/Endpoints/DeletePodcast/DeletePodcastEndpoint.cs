@@ -4,7 +4,7 @@ using Void = FastEndpoints.Void;
 
 namespace PodFeeder.Api.Endpoints.DeletePodcast;
 
-public class DeletePodcastEndpoint(IPodcastDb podcastDb) : Endpoint<DeletePodcastRequest, Void>
+public class DeletePodcastEndpoint(IDb<Podcast> podcastDb) : Endpoint<DeletePodcastRequest, Void>
 {
     public override void Configure()
     {
@@ -14,7 +14,7 @@ public class DeletePodcastEndpoint(IPodcastDb podcastDb) : Endpoint<DeletePodcas
 
     public override async Task HandleAsync(DeletePodcastRequest request, CancellationToken cancellationToken)
     {
-        podcastDb.DeletePodcast(request.PodcastId); 
+        podcastDb.Delete(request.PodcastId); 
         await Send.NoContentAsync(cancellationToken);
     }
 }

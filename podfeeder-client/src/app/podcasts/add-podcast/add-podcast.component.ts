@@ -20,8 +20,7 @@ export class AddPodcastComponent {
 
   addForm = new FormGroup({    
     feedUrl: new FormControl('', {nonNullable: true, validators: [
-      Validators.required,
-      Validators.pattern(this.rssUrlPattern)
+      Validators.required
     ]})
   });
 
