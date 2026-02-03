@@ -1,4 +1,4 @@
-﻿namespace PodFeeder.Api;
+﻿namespace PodFeeder.Api.Database;
 
 public interface IPodcastDb
 {

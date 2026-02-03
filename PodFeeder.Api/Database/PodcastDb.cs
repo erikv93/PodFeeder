@@ -1,6 +1,6 @@
 ﻿using LiteDB;
 
-namespace PodFeeder.Api;
+namespace PodFeeder.Api.Database;
 
 public class PodcastDb(string dbPath) : IPodcastDb
 {

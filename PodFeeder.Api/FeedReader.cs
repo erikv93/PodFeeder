@@ -1,10 +1,11 @@
 ﻿
 using System.ServiceModel.Syndication;
 using System.Xml;
+using PodFeeder.Api.Database;
 
 namespace PodFeeder.Api;
 
-public class FeedReader : IFeedReader
+public class FeedReader(IPodcastDb podcastDb) : IFeedReader
 {
     public Podcast GetPodcast(string feedUrl)
     {
@@ -21,8 +22,9 @@ public class FeedReader : IFeedReader
         };
     }
 
-    public IEnumerable<Episode> GetEpisodes(Podcast podcast)
+    public IEnumerable<Episode> GetEpisodes(Guid podcastId)
     {
+        var podcast =  podcastDb.GetPodcastById(podcastId);
         using XmlReader reader = XmlReader.Create(podcast.FeedUrl);
 
         var feed = SyndicationFeed.Load(reader);
@@ -31,7 +33,7 @@ public class FeedReader : IFeedReader
         {
             yield return new Episode
             {
-                Podcast = podcast,
+                PodcastId =  podcast.Id,
                 Title = item.Title.Text,
                 Description = item.Summary?.Text ?? string.Empty,
                 PublishDate = item.PublishDate.DateTime,

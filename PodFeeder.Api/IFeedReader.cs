@@ -3,5 +3,5 @@
 public interface IFeedReader
 {
     public Podcast GetPodcast(string feedUrl);
-    public IEnumerable<Episode> GetEpisodes(Podcast podcast);
+    public IEnumerable<Episode> GetEpisodes(Guid podcastId);
 }

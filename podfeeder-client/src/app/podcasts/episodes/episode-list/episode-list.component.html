@@ -3,7 +3,10 @@
     <table mat-table [dataSource]="paginatedEpisodes">
       <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef> Title </th>
-        <td mat-cell *matCellDef="let episode"> {{episode.title}} </td>
+        <td mat-cell *matCellDef="let episode"> 
+          <span>{{episode.title}}</span>
+          <mat-icon (click)="viewDescription(episode.description)">description</mat-icon>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="publishDate">
@@ -16,7 +19,10 @@
       <ng-container matColumnDef="downloadUrl">
         <th mat-header-cell *matHeaderCellDef> Download </th>
         <td mat-cell *matCellDef="let episode">
-          <button color="primary" mat-icon-button (click)="downloadEpisode(episode)">
+          <button color="primary" mat-icon-button 
+            (click)="downloadEpisode(episode)" 
+            [matTooltip]="episode.downloadUrl"
+            matTooltipPosition="left">
             <mat-icon>download</mat-icon>
           </button>
         </td>

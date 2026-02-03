@@ -1,24 +1,25 @@
+using FastEndpoints;
 using Microsoft.AspNetCore.StaticFiles;
 using PodFeeder.Api;
+using PodFeeder.Api.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddScoped<IFeedReader, FeedReader>();
+builder.Services.AddFastEndpoints();
 
-// Use DATABASE_PATH env var or default to podcasts.db
+// add db
 var dbPath = Environment.GetEnvironmentVariable("DATABASE_PATH") ?? "podcasts.db";
 builder.Services.AddSingleton<IPodcastDb, PodcastDb>(sp => new PodcastDb(dbPath));
 
-// Configure to listen on port 7979
+
 builder.WebHost.UseUrls("http://+:7979");
 
-var app = builder.Build();
 
-// Serve static files from wwwroot (Angular frontend) with proper MIME types
+var app = builder.Build();
+app.UseFastEndpoints();
+
 var provider = new FileExtensionContentTypeProvider();
 provider.Mappings[".js"] = "application/javascript";
 provider.Mappings[".css"] = "text/css";
@@ -40,10 +41,6 @@ else
 {
     app.UseHttpsRedirection();
 }
-
-app.UseAuthorization();
-
-app.MapControllers();
 
 // Fallback to index.html for Angular routing
 app.MapFallbackToFile("index.html");

@@ -12,10 +12,23 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { toObservable } from '@angular/core/rxjs-interop';
+import { Title } from '@angular/platform-browser';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialog } from '@angular/material/dialog';
+import { ViewDescriptionDialog } from '../../../shared/view-description/view-description-dialog';
 
 @Component({
   selector: 'app-episode-list',
-  imports: [AsyncPipe, MatIconModule, MatTableModule, MatExpansionModule, MatButtonModule, DatePipe, MatProgressSpinnerModule, MatPaginatorModule],
+  imports: [
+    AsyncPipe, 
+    MatIconModule, 
+    MatTableModule, 
+    MatExpansionModule, 
+    MatButtonModule, 
+    DatePipe, 
+    MatProgressSpinnerModule, 
+    MatPaginatorModule, 
+    MatTooltipModule],
   templateUrl: './episode-list.component.html',
   styleUrl: './episode-list.component.scss'
 })
@@ -23,16 +36,17 @@ export class EpisodeListComponent {
   public pageSize: number = 10;
   public length: number = 0;
   public pageChange = signal<PageEvent>({pageIndex: 0, pageSize: this.pageSize, length: 0});
-  public episodes$: Observable<Episode[]>;
   public paginatedEpisodes$: Observable<Episode[]>;
 
   constructor(
     private podcastDataService: PodcastDataService,
     private route: ActivatedRoute,
-    private http: HttpClient) {
-    const id: string = this.route.snapshot.paramMap.get('podcastId')!;
-    this.episodes$ = this.podcastDataService.getEpisodesForPodcast(id);
-    this.paginatedEpisodes$ = combineLatest([toObservable(this.pageChange), this.episodes$])
+    private http: HttpClient,
+    public dialog: MatDialog) {
+    const podcastId: string = this.route.snapshot.paramMap.get('podcastId')!;
+    const episodes$ = this.podcastDataService.getEpisodesForPodcast(podcastId);
+    const pageChange$ = toObservable(this.pageChange);
+    this.paginatedEpisodes$ = combineLatest([pageChange$, episodes$])
     .pipe(
       tap(([, episodes]) => {
         this.length = episodes.length;
@@ -51,13 +65,20 @@ export class EpisodeListComponent {
       const link = document.createElement('a');
       const url = window.URL.createObjectURL(blob);
       link.href = url;
-      link.download = `${episode.title || 'episode'}.mp3`; // TODO: do not assume mp3 format
+      const fileExtension = episode.downloadUrl.split('.')[episode.downloadUrl.split('.').length - 1];
+      link.download = `${episode.title}.${fileExtension}`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
     });
    }
+
+   viewDescription(description: string): void {
+      this.dialog.open(ViewDescriptionDialog, {
+        data: { description: description }
+    });
+  }
 }
 
 

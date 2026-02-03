@@ -11,3 +11,19 @@ table {
 	padding: auto
   }
 }
+
+.mat-column-title {
+	width: 70%;
+}
+
+.mat-column-publishDate {
+	width: 25%;
+}
+
+.mat-column-downloadUrl {
+	width: 5%;
+}
+
+.mat-mdc-table > thead:nth-child(1) {
+	display: none;
+}

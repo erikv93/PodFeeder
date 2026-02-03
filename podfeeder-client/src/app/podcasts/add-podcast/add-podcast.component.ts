@@ -19,8 +19,6 @@ export class AddPodcastComponent {
   private readonly rssUrlPattern = /^https?:\/\/.+(?:\.|\/)(rss|xml|feed)$/;
 
   addForm = new FormGroup({    
-    name: new FormControl('', {nonNullable: true, validators: Validators.required}),    
-    description: new FormControl('', {nonNullable: true}),
     feedUrl: new FormControl('', {nonNullable: true, validators: [
       Validators.required,
       Validators.pattern(this.rssUrlPattern)
@@ -33,7 +31,7 @@ export class AddPodcastComponent {
       id: '00000000-0000-0000-0000-000000000000',
     };
 
-    this.podcastDataService.addPodcast(podcast).subscribe({
+    this.podcastDataService.addPodcast(this.addForm.controls.feedUrl.value).subscribe({
       next: (newPodcast) => {
         this.router.navigate(['/podcasts', newPodcast.id]);
       },

@@ -1,12 +1,12 @@
 <mat-list>
     @for (podcast of podcasts$ | async; track $index) {
         <mat-list-item>
-            <span [routerLink]="['/podcasts', podcast.id]">
+            <a mat-button [routerLink]="['/podcasts', podcast.id]">
                 {{ podcast.name }}
                 @if(hasNewEpisodes(podcast)) {
                     <mat-icon>star</mat-icon>
                 }
-            </span>
+            </a>
             <div class="actions">
                 <button mat-icon-button color="warn" (click)="deletePodcast(podcast.id)">
                     <mat-icon class="delete-icon">delete</mat-icon>

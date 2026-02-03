@@ -19,8 +19,8 @@ export class PodcastDataService {
     return this.http.get<Episode[]>(`/api/podcasts/${podcastId}/episodes`);
   }
 
-  public addPodcast(podcast: Podcast) : Observable<Podcast> {
-    return this.http.post<Podcast>('/api/podcasts', podcast);
+  public addPodcast(feedUrl: string) : Observable<Podcast> {
+    return this.http.post<Podcast>('/api/podcasts', { feedurl: feedUrl });
   }
 
   public deletePodcast(podcastId: string) : Observable<void> {
